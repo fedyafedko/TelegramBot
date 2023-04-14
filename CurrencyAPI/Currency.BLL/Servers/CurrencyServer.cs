@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using AutoMapper;
-using CurrencyAPI.Common.DTO;
+using CurrencyAPI.Currency.API.Common;
 using CurrencyAPI.CurrencyBLL.Interfaces;
-using CurrencyAPI.CurrencyDAL.Repositories.Interfaces;
+using CurrencyAPI.Currency.DAL.Repositories.Interfaces;
 
 namespace CurrencyAPI.CurrencyBLL.Server
 {

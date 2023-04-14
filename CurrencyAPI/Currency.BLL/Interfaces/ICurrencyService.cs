@@ -1,4 +1,4 @@
-﻿using CurrencyAPI.Common.DTO;
+﻿using CurrencyAPI.Currency.API.Common;
 namespace CurrencyAPI.CurrencyBLL.Interfaces
 {
     public interface ICurrencyService

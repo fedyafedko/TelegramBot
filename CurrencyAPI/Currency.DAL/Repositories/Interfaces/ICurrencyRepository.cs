@@ -1,9 +1,10 @@
 ﻿using CurrencyDAL.Entities;
 using CurrencyDAL.Repositories;
 
-namespace CurrencyAPI.CurrencyDAL.Repositories.Interfaces
+namespace CurrencyAPI.Currency.DAL.Repositories.Interfaces
 {
     public interface ICurrencyRepository : IRepo<CurrencyEntities, string>
     {
+
     }
 }

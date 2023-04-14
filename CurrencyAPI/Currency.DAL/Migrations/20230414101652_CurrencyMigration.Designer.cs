@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CurrencyAPI.Migrations
+namespace Currency.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230412183510_CurrencyMigration")]
+    [Migration("20230414101652_CurrencyMigration")]
     partial class CurrencyMigration
     {
         /// <inheritdoc />

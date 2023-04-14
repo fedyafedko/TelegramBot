@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace CurrencyAPI.Migrations
+namespace Currency.DAL.Migrations
 {
     /// <inheritdoc />
     public partial class CurrencyMigration : Migration

@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrencyAPI", "CurrencyAPI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramBot", "TelegramBot\TelegramBot.csproj", "{9342A18F-2054-4784-ABFE-3A6A739F7AC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Currency.DAL", "Currency.DAL\Currency.DAL.csproj", "{29D42308-E9B3-4731-97DD-78B8D4F0199F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Currency.BLL", "Currency.BLL\Currency.BLL.csproj", "{F974511C-F994-463C-81E1-C69DB437B5ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{9342A18F-2054-4784-ABFE-3A6A739F7AC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9342A18F-2054-4784-ABFE-3A6A739F7AC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9342A18F-2054-4784-ABFE-3A6A739F7AC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29D42308-E9B3-4731-97DD-78B8D4F0199F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29D42308-E9B3-4731-97DD-78B8D4F0199F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29D42308-E9B3-4731-97DD-78B8D4F0199F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29D42308-E9B3-4731-97DD-78B8D4F0199F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F974511C-F994-463C-81E1-C69DB437B5ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F974511C-F994-463C-81E1-C69DB437B5ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F974511C-F994-463C-81E1-C69DB437B5ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F974511C-F994-463C-81E1-C69DB437B5ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
