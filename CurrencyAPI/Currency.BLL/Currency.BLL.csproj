@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Currency.DAL\Currency.DAL.csproj" />
-    <ProjectReference Include="..\CurrencyAPI\CurrencyAPI.csproj" />
   </ItemGroup>
 
 </Project>

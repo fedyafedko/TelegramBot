@@ -7,9 +7,10 @@ namespace ConvertCurrencyBot
 {
     public class ProgramBot
     {
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Запущен бот " + TelegramBot.bot.GetMeAsync().Result.FirstName);
+            Console.WriteLine("Запущен бот " + TelegramBot._bot.GetMeAsync().Result.FirstName);
 
             var cts = new CancellationTokenSource();
             var cancellationToken = cts.Token;
@@ -17,7 +18,7 @@ namespace ConvertCurrencyBot
             {
                 AllowedUpdates = { }, // receive all update types
             };
-            TelegramBot.bot.StartReceiving(
+            TelegramBot._bot.StartReceiving(
                 TelegramBot.HandleUpdateAsync,
                 TelegramBot.HandleErrorAsync,
                 receiverOptions,

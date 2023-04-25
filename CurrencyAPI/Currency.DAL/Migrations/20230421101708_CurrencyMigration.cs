@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -11,18 +12,20 @@ namespace Currency.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Currency",
+                name: "Currencies",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FromCurrency = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ToCurrency = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Amout = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Amout = table.Column<int>(type: "int", nullable: false),
+                    Result = table.Column<double>(type: "float", nullable: false),
+                    Data = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Currency", x => x.Id);
+                    table.PrimaryKey("PK_Currencies", x => x.Id);
                 });
         }
 
@@ -30,7 +33,7 @@ namespace Currency.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Currency");
+                name: "Currencies");
         }
     }
 }

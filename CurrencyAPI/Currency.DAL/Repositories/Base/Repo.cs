@@ -1,10 +1,11 @@
 ﻿using CurrencyDAL.EF;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 
 namespace CurrencyDAL.Repositories;
 
-class Repo<TEntity, TKey> : IRepo<TEntity, TKey>
+public class Repo<TEntity, TKey> : IRepo<TEntity, TKey>
     where TEntity : class
     where TKey : IEquatable<TKey>
 {
@@ -105,5 +106,10 @@ class Repo<TEntity, TKey> : IRepo<TEntity, TKey>
     {
         Dispose(true);
         GC.SuppressFinalize(this);
+    }
+
+    public async Task<TEntity> FindByLoginAsync(string login)
+    {
+        return await Table.FindAsync(login);
     }
 }

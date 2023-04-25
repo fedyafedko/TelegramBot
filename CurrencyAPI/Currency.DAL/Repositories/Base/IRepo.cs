@@ -10,7 +10,7 @@ namespace CurrencyDAL.Repositories
 
         int Add(TEntity entity, bool persist = true);
         Task<int> AddAsync(TEntity entity, bool persist = true);
-
+        Task<TEntity> FindByLoginAsync(string login);
         TEntity Find(TKey key);
         Task<TEntity> FindAsync(TKey key);
 

@@ -1,13 +1,17 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using CurrencyAPI.Controllers;
+using Telegram.Bot.Types.Enums;
 
 
 namespace ConvertCurrencyBot
 {
     class TelegramBot
     {
-        public static ITelegramBotClient bot = new TelegramBotClient("6046903328:AAFYt_3eYHYekJujM0Lza_5bdIBej4DgneI");
+        public static ITelegramBotClient _bot = new TelegramBotClient("6046903328:AAFYt_3eYHYekJujM0Lza_5bdIBej4DgneI");
+        private static CurrencyController controller;
+
         public static async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
             // Некоторые действия
@@ -17,19 +21,46 @@ namespace ConvertCurrencyBot
                 IReplyMarkup keyboardAuth = GetButtonsAuth();
                 IReplyMarkup keyboard = GetButtons();
                 var message = update.Message;
-                if (message.Text.ToLower() == "/start")
+                if (message.Text == "Сalculator")
                 {
-                    await botClient.SendTextMessageAsync(message.Chat, "rreeeeeeeeeeehfdhdhfgdggdfgdg");
-                    await botClient.SendTextMessageAsync(message.Chat, text: "Choose options:", replyMarkup: keyboardAuth);
+                    // Відправляємо повідомлення з текстом "Введіть параметри (наприклад, USD UAH 100):"
+                    await botClient.SendTextMessageAsync(message.Chat, "Введіть параметри (наприклад, USD UAH 100):");
+                    // Чекаємо на введення тексту з параметрами
                 }
-                else if (message.Text == "Authorization")
+                else if (message.Text != null)
                 {
-                    await botClient.SendTextMessageAsync(message.Chat, "Well, done!!!");
-                    await botClient.SendTextMessageAsync(message.Chat, text: "Choose options:", replyMarkup: keyboard);
+                    // розділити текст повідомлення на параметри have, want та amount
+                    string[] parameters = message.Text.Split(' ');
+                    if (parameters.Length == 3)
+                    {
+                        string have = parameters[0];
+                        string want = parameters[1];
+                        int amount = int.Parse(parameters[2]);
+
+                        // викликати контролер та повернути результат в повідомленні
+                        var result = await controller.Calculator(have, want, amount);
+                        await botClient.SendTextMessageAsync(
+                            chatId: message.Chat.Id,
+                            text: $"Результат: {result}"
+                        );
+                    }
                 }
+                //if (message.Text.ToLower() == "/start")
+                //{
+                //    await botClient.SendTextMessageAsync(message.Chat, "rreeeeeeeeeeehfdhdhfgdggdfgdg");
+                //    await botClient.SendTextMessageAsync(message.Chat, text: "Choose options:", replyMarkup: keyboardAuth);
+                //}
+                //else if (message.Text == "Authorization")
+                //{
+                //    await botClient.SendTextMessageAsync(message.Chat, "Well, done!!!");
+                //    await botClient.SendTextMessageAsync(message.Chat, text: "Choose options:", replyMarkup: keyboard);
+                //}
+                //else if (message.Text == "Сalculator")
+                //{
 
-
+                //}
             }
+
         }
 
         public static IReplyMarkup GetButtons()
