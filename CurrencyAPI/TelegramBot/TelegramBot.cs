@@ -69,7 +69,7 @@ namespace ConvertCurrencyBot
             KeyboardButton buttonAllCurrency = new KeyboardButton("All My Currency");
             KeyboardButton buttonUSD = new KeyboardButton("USD");
             KeyboardButton buttonEUR = new KeyboardButton("EUR");
-            KeyboardButton buttonGBR = new KeyboardButton("GBR");
+            KeyboardButton buttonGBR = new KeyboardButton("GBP");
             KeyboardButton buttonPLN = new KeyboardButton("PLN");
             KeyboardButton buttonCalculator = new KeyboardButton("Сalculator");
 

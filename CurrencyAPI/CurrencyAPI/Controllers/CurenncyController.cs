@@ -20,10 +20,10 @@ namespace CurrencyAPI.Controllers
         {
             _currencyService = currencyService;
         }
-        [HttpGet("{have}", Name = "GetCurrencyByToHave")]
+        [HttpGet("GetCurrencyByToHave")]
         public async Task<IActionResult> GetCurrencyByToHave(string have) => Ok(await _currencyService.GetCurrencyByToHave(have));
 
-        [HttpPost(Name = "AddCurrencyController")]
+        [HttpPost("AddCurrencyController")]
         [ActionName(nameof(GetCurrencyByToHave))]
         public async Task<IActionResult> InsertCurrency(string have)
         {
@@ -37,16 +37,16 @@ namespace CurrencyAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet(Name = "Calrulator")]
+        [HttpGet("Calrulator")]
         public async Task<IActionResult> Calculator(string have, string want, int amount) => Ok(await _currencyService.CalculatorCurrency(have, want, amount));
        
-        [HttpDelete(Name = "DeleteCurrency")]
+        [HttpDelete("DeleteCurrency")]
         public async Task<IActionResult> DeleteCurrency(string have) => await _currencyService.DeleteCurrency(have) ? Ok() : NotFound();
-        //[HttpGet(Name = "GetAllCurrrency")]
-        //public Task<ActionResult<List<CurrencyDTO>>> GetAll()
-        //{
-        //    return Ok(_currencyService.GetAll());
-        //}
+        [HttpGet("GetAllCurrrency")]
+        public IActionResult GetAll()
+        {
+            return Ok(_currencyService.GetAll());
+        }
     }
 }
 

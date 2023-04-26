@@ -42,9 +42,9 @@ namespace CurrencyAPI.CurrencyBLL.Server
             return currency != null && await _currencyRepository.DeleteAsync(currency) > 0;
         }
 
-        public Task<List<CurrencyDTO>> GetAll()
+        public List<CurrencyDTO> GetAll()
         {
-            return Task.FromResult(_mapper.Map<IEnumerable<CurrencyDTO>>(_currencyRepository.GetAll()).ToList());
+            return _mapper.Map<IEnumerable<CurrencyDTO>>(_currencyRepository.GetAll()).ToList();
         }
 
         public async Task<CurrencyDTO> GetCurrencyByToHave(string have)
