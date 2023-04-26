@@ -24,21 +24,15 @@ namespace Currency.DAL.Migrations
 
             modelBuilder.Entity("CurrencyDAL.Entities.CurrencyEntities", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("FromCurrency")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Amout")
-                        .HasColumnType("int");
+                    b.Property<double>("Amout")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("FromCurrency")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Result")
                         .HasColumnType("float");
@@ -47,30 +41,9 @@ namespace Currency.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("FromCurrency");
 
                     b.ToTable("Currencies");
-                });
-
-            modelBuilder.Entity("CurrencyDAL.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Login")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

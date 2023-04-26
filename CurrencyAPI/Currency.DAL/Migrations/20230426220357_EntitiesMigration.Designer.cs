@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Currency.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230421101708_CurrencyMigration")]
-    partial class CurrencyMigration
+    [Migration("20230426220357_EntitiesMigration")]
+    partial class EntitiesMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,21 +27,15 @@ namespace Currency.DAL.Migrations
 
             modelBuilder.Entity("CurrencyDAL.Entities.CurrencyEntities", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("FromCurrency")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Amout")
-                        .HasColumnType("int");
+                    b.Property<double>("Amout")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("FromCurrency")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Result")
                         .HasColumnType("float");
@@ -50,7 +44,7 @@ namespace Currency.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("FromCurrency");
 
                     b.ToTable("Currencies");
                 });

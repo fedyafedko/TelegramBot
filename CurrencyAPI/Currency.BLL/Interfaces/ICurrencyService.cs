@@ -4,8 +4,8 @@ namespace CurrencyAPI.CurrencyBLL.Interfaces
 {
     public interface ICurrencyService
     {
-        Task<CurrencyDTO> AddCurrency(string have); 
-        List<CurrencyDTO> GetAll();
+        Task<CurrencyDTO> AddCurrency(string have);
+        Task<List<CurrencyDTO>> GetAll();
         Task<CurrencyDTO> GetCurrencyByToHave(string have);
         Task<bool> DeleteCurrency(string have);
         Task<CurrencyDTO> UpdateCurrency(CurrencyDTO currency, string have);

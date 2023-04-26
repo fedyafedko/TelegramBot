@@ -4,7 +4,6 @@ using CurrencyAPI.DAL.Repositories;
 using CurrencyAPI.CurrencyBLL.Interfaces;
 using CurrencyAPI.CurrencyBLL.Server;
 using Currency.BLL.AutoMapper;
-;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 //builder.Services.AddScoped<IUserRepository, UserRepository>();
 //Services
-builder.Services.AddScoped<ICurrencyService, CurrencyServer>();
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 //builder.Services.AddScoped<IAuthServer, AuthServer>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

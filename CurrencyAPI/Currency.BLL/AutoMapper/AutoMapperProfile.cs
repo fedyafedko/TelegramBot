@@ -12,7 +12,12 @@ namespace Currency.BLL.AutoMapper
     {
         public AutoMapperProfile() 
         {
-            CreateMap<CurrencyEntities, CurrencyDTO>().ReverseMap();
+            CreateMap<CurrencyDTO, CurrencyEntities>()
+                .ForMember(dest => dest.FromCurrency, source => source.MapFrom(s => s.old_currency))
+                .ForMember(dest => dest.ToCurrency, source => source.MapFrom(s => s.new_currency))
+                .ForMember(dest => dest.Amout, source => source.MapFrom(s => s.old_amount))
+                .ForMember(dest => dest.Result, source => source.MapFrom(s => s.new_amount))
+                .ReverseMap();
         }
     }
 }

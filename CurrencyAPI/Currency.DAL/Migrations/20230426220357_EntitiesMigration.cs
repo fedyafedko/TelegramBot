@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Currency.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class CurrencyMigration : Migration
+    public partial class EntitiesMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,17 +15,15 @@ namespace Currency.DAL.Migrations
                 name: "Currencies",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FromCurrency = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FromCurrency = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ToCurrency = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Amout = table.Column<int>(type: "int", nullable: false),
+                    Amout = table.Column<double>(type: "float", nullable: false),
                     Result = table.Column<double>(type: "float", nullable: false),
                     Data = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Currencies", x => x.Id);
+                    table.PrimaryKey("PK_Currencies", x => x.FromCurrency);
                 });
         }
 

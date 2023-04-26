@@ -2,6 +2,11 @@
 using CurrencyAPI.CurrencyBLL.Interfaces;
 using CurrencyAPI.CurrencyBLL.Server;
 using Currency.BLL.Currency.API.Common.DTO;
+using CurrencyDAL.Entities;
+using Newtonsoft.Json;
+using System.Net.Http;
+using AutoMapper;
+using CurrencyAPI.Currency.DAL.Repositories.Interfaces;
 
 namespace CurrencyAPI.Controllers
 {
@@ -10,15 +15,14 @@ namespace CurrencyAPI.Controllers
     public class CurrencyController : ControllerBase
     {
         private readonly ICurrencyService _currencyService;
+
         public CurrencyController(ICurrencyService currencyService)
         {
             _currencyService = currencyService;
         }
         [HttpGet("{have}", Name = "GetCurrencyByToHave")]
-        public async Task<CurrencyDTO> GetCurrencyByToHave(string have)
-        {
-            return await _currencyService.GetCurrencyByToHave(have);
-        }
+        public async Task<IActionResult> GetCurrencyByToHave(string have) => Ok(await _currencyService.GetCurrencyByToHave(have));
+
         [HttpPost(Name = "AddCurrencyController")]
         [ActionName(nameof(GetCurrencyByToHave))]
         public async Task<IActionResult> InsertCurrency(string have)
@@ -34,10 +38,15 @@ namespace CurrencyAPI.Controllers
             }
         }
         [HttpGet(Name = "Calrulator")]
-        public async Task<IActionResult> Calculator(string have, string want, int amount)
-        {
-            return Ok(await _currencyService.CalculatorCurrency(have, want, amount));
-        }
+        public async Task<IActionResult> Calculator(string have, string want, int amount) => Ok(await _currencyService.CalculatorCurrency(have, want, amount));
+       
+        [HttpDelete(Name = "DeleteCurrency")]
+        public async Task<IActionResult> DeleteCurrency(string have) => await _currencyService.DeleteCurrency(have) ? Ok() : NotFound();
+        //[HttpGet(Name = "GetAllCurrrency")]
+        //public Task<ActionResult<List<CurrencyDTO>>> GetAll()
+        //{
+        //    return Ok(_currencyService.GetAll());
+        //}
     }
 }
 

@@ -6,32 +6,30 @@ using Newtonsoft.Json;
 using CurrencyDAL.EF;
 using System;
 using Currency.BLL.Currency.API.Common.DTO;
-using Currency.BLL.JsonSnakeCase;
 using Newtonsoft.Json.Serialization;
 
 namespace CurrencyAPI.CurrencyBLL.Server
 {
-    public class CurrencyServer : ICurrencyService
+    public class CurrencyService : ICurrencyService
     {
         private readonly ICurrencyRepository _currencyRepository;
         private readonly IMapper _mapper;
         private static readonly HttpClient _httpClient = new HttpClient();
         private static readonly string baseUri = "https://api.api-ninjas.com/v1/convertcurrency";
 
-        public CurrencyServer(ICurrencyRepository repository, IMapper mapper)
+        public CurrencyService(ICurrencyRepository repository, IMapper mapper)
         {
             _currencyRepository = repository ?? throw new ArgumentNullException(nameof(repository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
         }
-        public async Task<CurrencyDTO> AddCurrency(string have)
+        public async Task<CurrencyDTO> AddCurrency(string old_currency)
         {
-            var uri = $"{baseUri}?have={have}&want=UAH&amount=1";
+            var uri = $"{baseUri}?have={old_currency}&want=UAH&amount=1";
             var response = await _httpClient.GetAsync(uri);
             response.EnsureSuccessStatusCode();
             var jsonString = await response.Content.ReadAsStringAsync();
-            var currencyDTO = JsonSnakeCaseConverter.DeserializeSnakeCase<CurrencyDTO>(jsonString);
-            //var currencyDTO = JsonConvert.DeserializeObject<CurrencyDTO>(jsonString);
+            var currencyDTO = JsonConvert.DeserializeObject<CurrencyDTO>(jsonString);
             CurrencyEntities entity = _mapper.Map<CurrencyEntities>(currencyDTO);
 
             await _currencyRepository.AddAsync(entity);
@@ -44,9 +42,9 @@ namespace CurrencyAPI.CurrencyBLL.Server
             return currency != null && await _currencyRepository.DeleteAsync(currency) > 0;
         }
 
-        public List<CurrencyDTO> GetAll()
+        public Task<List<CurrencyDTO>> GetAll()
         {
-            throw new NotImplementedException();
+            return Task.FromResult(_mapper.Map<IEnumerable<CurrencyDTO>>(_currencyRepository.GetAll()).ToList());
         }
 
         public async Task<CurrencyDTO> GetCurrencyByToHave(string have)
