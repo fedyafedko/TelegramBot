@@ -8,7 +8,7 @@ namespace CurrencyAPI.CurrencyBLL.Interfaces
         List<CurrencyDTO> GetAll();
         Task<CurrencyDTO> GetCurrencyByToHave(string have);
         Task<bool> DeleteCurrency(string have);
-        Task<CurrencyDTO> UpdateCurrency(CurrencyDTO currency, string have);
+        Task<UpdateCurrencyDTO> UpdateCurrency(UpdateCurrencyDTO currency, string have);
         Task<string> CalculatorCurrency(string want, string have, int amount);
 
     }

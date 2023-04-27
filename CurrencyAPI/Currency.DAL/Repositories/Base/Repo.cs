@@ -17,7 +17,7 @@ public class Repo<TEntity, TKey> : IRepo<TEntity, TKey>
 
     protected Repo(ApplicationDbContext applicationDbContext)
     {
-        ApplicationDbContext = applicationDbContext;
+        ApplicationDbContext = applicationDbContext ?? throw new ArgumentNullException(nameof(applicationDbContext));
         Table = ApplicationDbContext.Set<TEntity>();
         _disposeContext = false;
     }
@@ -45,12 +45,12 @@ public class Repo<TEntity, TKey> : IRepo<TEntity, TKey>
         Table.Remove(entity);
         return persist ? await SaveChagesAsync() : 0;
     }
-    public TEntity Find(TKey key)
+    public virtual TEntity? Find(TKey key)
     {
         return Table.Find(key);
     }
 
-    public async Task<TEntity> FindAsync(TKey key)
+    public virtual async Task<TEntity?> FindAsync(TKey key)
     {
         return await Table.FindAsync(key);
     }
@@ -60,7 +60,13 @@ public class Repo<TEntity, TKey> : IRepo<TEntity, TKey>
     }
     public int Update(TEntity entity, bool persist = true)
     {
-        throw new NotImplementedException();
+        Table.Update(entity);
+        return persist ? SaveChages() : 0;
+    }
+    public async Task<int> UpdateAsync(TEntity entity, bool persist = true)
+    {
+        Table.Update(entity);
+        return persist ? await SaveChagesAsync() : 0;
     }
     public int SaveChages()
     {
@@ -87,11 +93,6 @@ public class Repo<TEntity, TKey> : IRepo<TEntity, TKey>
         }
     }
 
-    public async Task<int> UpdateAsync(TEntity entity, bool persist = true)
-    {
-        Table.Update(entity);
-        return persist ? await SaveChagesAsync() : 0;
-    }
 
     public void Dispose(bool disposing)
     {
@@ -106,10 +107,5 @@ public class Repo<TEntity, TKey> : IRepo<TEntity, TKey>
     {
         Dispose(true);
         GC.SuppressFinalize(this);
-    }
-
-    public async Task<TEntity> FindByLoginAsync(string login)
-    {
-        return await Table.FindAsync(login);
     }
 }

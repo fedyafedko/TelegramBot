@@ -53,15 +53,18 @@ namespace CurrencyAPI.CurrencyBLL.Server
             return currency != null ? _mapper.Map<CurrencyDTO>(currency) : null!;
         }
 
-        public async Task<CurrencyDTO> UpdateCurrency(CurrencyDTO currency, string have)
+        public async Task<UpdateCurrencyDTO> UpdateCurrency(UpdateCurrencyDTO currency, string have)
         {
             var entity = await _currencyRepository.FindAsync(have);
-
+            if (entity == null)
+            {
+                throw new KeyNotFoundException($"Unable to find entity with such key {have}");
+            }
             _mapper.Map(currency, entity);
 
             await _currencyRepository.UpdateAsync(entity);
 
-            return _mapper.Map<CurrencyDTO>(entity);
+            return _mapper.Map<UpdateCurrencyDTO>(entity);
         }
 
         public async Task<string> CalculatorCurrency(string have, string want, int amount)

@@ -47,6 +47,23 @@ namespace CurrencyAPI.Controllers
         {
             return Ok(_currencyService.GetAll());
         }
+        [HttpPut("UpdateCurrency")]
+        public async Task<IActionResult> Update( string have, [FromBody]UpdateCurrencyDTO currency)
+        {
+            try
+            {
+                var result = await _currencyService.UpdateCurrency(currency, have);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
 
