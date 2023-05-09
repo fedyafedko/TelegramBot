@@ -1,29 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CurrencyAPI.CurrencyBLL.Interfaces;
-using CurrencyAPI.CurrencyBLL.Server;
 using Currency.BLL.Currency.API.Common.DTO;
-using CurrencyDAL.Entities;
-using Newtonsoft.Json;
-using System.Net.Http;
-using AutoMapper;
-using CurrencyAPI.Currency.DAL.Repositories.Interfaces;
 
 namespace CurrencyAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CurrencyController : ControllerBase
+    public class CurrenciesController : ControllerBase
     {
         private readonly ICurrencyService _currencyService;
 
-        public CurrencyController(ICurrencyService currencyService)
+        public CurrenciesController(ICurrencyService currencyService)
         {
             _currencyService = currencyService;
         }
-        [HttpGet("GetCurrencyByToHave")]
+        [HttpGet("{have}")]
         public async Task<IActionResult> GetCurrencyByToHave(string have) => Ok(await _currencyService.GetCurrencyByToHave(have));
 
-        [HttpPost("AddCurrencyController")]
+        [HttpPost]
         [ActionName(nameof(GetCurrencyByToHave))]
         public async Task<IActionResult> InsertCurrency(string have)
         {
@@ -38,16 +32,14 @@ namespace CurrencyAPI.Controllers
             }
         }
         [HttpGet("Calrulator")]
-        public async Task<IActionResult> Calculator(string have, string want, int amount) => Ok(await _currencyService.CalculatorCurrency(have, want, amount));
+        public async Task<IActionResult> Calculator([FromQuery] string have, [FromQuery] string want, [FromQuery] int amount) => Ok(await _currencyService.CalculatorCurrency(have, want, amount));
        
-        [HttpDelete("DeleteCurrency")]
+        [HttpDelete("{have}")]
         public async Task<IActionResult> DeleteCurrency(string have) => await _currencyService.DeleteCurrency(have) ? Ok() : NotFound();
-        [HttpGet("GetAllCurrrency")]
-        public IActionResult GetAll()
-        {
-            return Ok(_currencyService.GetAll());
-        }
-        [HttpPut("UpdateCurrency")]
+        [HttpGet]
+        public IActionResult GetAll() => Ok(_currencyService.GetAll());
+
+        [HttpPut("{have}")]
         public async Task<IActionResult> Update( string have, [FromBody]UpdateCurrencyDTO currency)
         {
             try

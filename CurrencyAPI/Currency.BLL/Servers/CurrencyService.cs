@@ -3,10 +3,8 @@ using CurrencyAPI.CurrencyBLL.Interfaces;
 using CurrencyAPI.Currency.DAL.Repositories.Interfaces;
 using CurrencyDAL.Entities;
 using Newtonsoft.Json;
-using CurrencyDAL.EF;
-using System;
 using Currency.BLL.Currency.API.Common.DTO;
-using Newtonsoft.Json.Serialization;
+
 
 namespace CurrencyAPI.CurrencyBLL.Server
 {
@@ -16,7 +14,6 @@ namespace CurrencyAPI.CurrencyBLL.Server
         private readonly IMapper _mapper;
         private static readonly HttpClient _httpClient = new HttpClient();
         private static readonly string baseUri = "https://api.api-ninjas.com/v1/convertcurrency";
-
         public CurrencyService(ICurrencyRepository repository, IMapper mapper)
         {
             _currencyRepository = repository ?? throw new ArgumentNullException(nameof(repository));
