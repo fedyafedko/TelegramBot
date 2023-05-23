@@ -22,6 +22,9 @@ namespace CurrencyAPI.CurrencyBLL.Server
         }
         public async Task<CurrencyDTO> AddCurrency(string old_currency)
         {
+            if (await _currencyRepository.Table.FindAsync(old_currency) != null)
+                throw new InvalidOperationException("Entity with such key already exists in database");
+
             var uri = $"{baseUri}?have={old_currency}&want=UAH&amount=1";
             var response = await _httpClient.GetAsync(uri);
             response.EnsureSuccessStatusCode();
