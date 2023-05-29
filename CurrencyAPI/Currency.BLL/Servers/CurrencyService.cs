@@ -38,6 +38,11 @@ namespace CurrencyAPI.CurrencyBLL.Server
         }
         public async Task<bool> DeleteCurrency(string have)
         {
+            var entity = await _currencyRepository.FindAsync(have);
+            if (entity == null)
+            {
+                throw new KeyNotFoundException($"Unable to find entity with such key {have}");
+            }
             var currency = await _currencyRepository.FindAsync(have);
             return currency != null && await _currencyRepository.DeleteAsync(currency) > 0;
         }
@@ -49,6 +54,11 @@ namespace CurrencyAPI.CurrencyBLL.Server
 
         public async Task<CurrencyDTO> GetCurrencyByToHave(string have)
         {
+            var entity = await _currencyRepository.FindAsync(have);
+            if (entity == null)
+            {
+                throw new KeyNotFoundException($"Unable to find entity with such key {have}");
+            }
             CurrencyEntities? currency = await _currencyRepository.FindAsync(have);
             return currency != null ? _mapper.Map<CurrencyDTO>(currency) : null!;
         }

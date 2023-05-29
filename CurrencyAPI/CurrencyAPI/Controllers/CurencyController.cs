@@ -15,8 +15,17 @@ namespace CurrencyAPI.Controllers
             _currencyService = currencyService;
         }
         [HttpGet("{have}")]
-        public async Task<IActionResult> GetCurrencyByToHave(string have) => Ok(await _currencyService.GetCurrencyByToHave(have));
-
+        public async Task<IActionResult> GetCurrencyByToHave(string have)
+        {
+            try
+            {
+                return Ok(await _currencyService.GetCurrencyByToHave(have));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost]
         [ActionName(nameof(GetCurrencyByToHave))]
         public async Task<IActionResult> InsertCurrency(string have)
@@ -33,14 +42,25 @@ namespace CurrencyAPI.Controllers
         }
         [HttpGet("Calrulator")]
         public async Task<IActionResult> Calculator([FromQuery] string have, [FromQuery] string want, [FromQuery] int amount) => Ok(await _currencyService.CalculatorCurrency(have, want, amount));
-       
+
         [HttpDelete("{have}")]
-        public async Task<IActionResult> DeleteCurrency(string have) => await _currencyService.DeleteCurrency(have) ? Ok() : NotFound();
+        public async Task<IActionResult> DeleteCurrency(string have)
+        {
+            try
+            {
+
+            return await _currencyService.DeleteCurrency(have) ? Ok() : NotFound();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpGet]
         public IActionResult GetAll() => Ok(_currencyService.GetAll());
 
         [HttpPut("{have}")]
-        public async Task<IActionResult> Update( string have, [FromBody]UpdateCurrencyDTO currency)
+        public async Task<IActionResult> Update(string have, [FromBody] UpdateCurrencyDTO currency)
         {
             try
             {

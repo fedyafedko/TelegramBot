@@ -4,6 +4,7 @@ using CurrencyAPI.DAL.Repositories;
 using CurrencyAPI.CurrencyBLL.Interfaces;
 using CurrencyAPI.CurrencyBLL.Server;
 using Currency.BLL.AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,8 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 builder.Services.AddControllers();
 
 //DB context
-builder.Services.AddDbContext<ApplicationDbContext>();
+
+builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 //Repositories
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 //builder.Services.AddScoped<IUserRepository, UserRepository>();
