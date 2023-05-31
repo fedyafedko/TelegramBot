@@ -18,10 +18,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 //Repositories
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
-//builder.Services.AddScoped<IUserRepository, UserRepository>();
 //Services
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
-//builder.Services.AddScoped<IAuthServer, AuthServer>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

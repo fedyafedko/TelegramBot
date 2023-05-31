@@ -41,7 +41,17 @@ namespace CurrencyAPI.Controllers
             }
         }
         [HttpGet("Calrulator")]
-        public async Task<IActionResult> Calculator([FromQuery] string have, [FromQuery] string want, [FromQuery] int amount) => Ok(await _currencyService.CalculatorCurrency(have, want, amount));
+        public async Task<IActionResult> Calculator([FromQuery] string have, [FromQuery] string want, [FromQuery] int amount)
+        {
+            try
+            {
+                return Ok(await _currencyService.CalculatorCurrency(have, want, amount));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpDelete("{have}")]
         public async Task<IActionResult> DeleteCurrency(string have)
@@ -49,15 +59,25 @@ namespace CurrencyAPI.Controllers
             try
             {
 
-            return await _currencyService.DeleteCurrency(have) ? Ok() : NotFound();
+                return await _currencyService.DeleteCurrency(have) ? Ok() : NotFound();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
         [HttpGet]
-        public IActionResult GetAll() => Ok(_currencyService.GetAll());
+        public IActionResult GetAll()
+        {
+            try
+            {
+                return Ok(_currencyService.GetAll());
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPut("{have}")]
         public async Task<IActionResult> Update(string have, [FromBody] UpdateCurrencyDTO currency)

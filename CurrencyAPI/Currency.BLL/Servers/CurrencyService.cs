@@ -40,16 +40,17 @@ namespace CurrencyAPI.CurrencyBLL.Server
         {
             var entity = await _currencyRepository.FindAsync(have);
             if (entity == null)
-            {
                 throw new KeyNotFoundException($"Unable to find entity with such key {have}");
-            }
             var currency = await _currencyRepository.FindAsync(have);
             return currency != null && await _currencyRepository.DeleteAsync(currency) > 0;
         }
 
         public List<CurrencyDTO> GetAll()
         {
-            return _mapper.Map<IEnumerable<CurrencyDTO>>(_currencyRepository.GetAll()).ToList();
+            var currencies = _currencyRepository.GetAll();
+            if (currencies == null || !currencies.Any())
+                throw new InvalidOperationException("No currencies found");
+            return _mapper.Map<IEnumerable<CurrencyDTO>>(currencies).ToList();
         }
 
         public async Task<CurrencyDTO> GetCurrencyByToHave(string have)
