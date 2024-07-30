@@ -1,11 +1,6 @@
 ﻿using CurrencyDAL.EF;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Currency.DAL.EF
 {
@@ -13,7 +8,7 @@ namespace Currency.DAL.EF
     {
         ApplicationDbContext IDesignTimeDbContextFactory<ApplicationDbContext>.CreateDbContext(string[] args)
         {
-            var connectionString = "Server=DESKTOP-A4KSM6M;Database=ConvertCurrency;Trusted_Connection=True;TrustServerCertificate=True";
+            var connectionString = "Server=db;Database=master;User=SA;Password=Fedko123!@#;TrustServerCertificate=True";
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseSqlServer(connectionString);
             return new ApplicationDbContext(optionsBuilder.Options);
